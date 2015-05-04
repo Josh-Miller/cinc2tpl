@@ -1,0 +1,27 @@
+{
+  "name": "cinc2tpl",
+  "version": "0.0.0",
+  "description": "Converts CINC display yml files to Drupal tpl's",
+  "main": "index.js",
+  "scripts": {
+    "test": "test cinc2tpl"
+  },
+  "keywords": [
+    "yml",
+    "drupal",
+    "tpl",
+    "template"
+  ],
+  "author": "Josh Miller",
+  "license": "MIT",
+  "dependencies": {
+    "fs-walk": "0.0.1",
+    "gulp": "^3.8.11",
+    "gulp-build": "^0.5.3",
+    "gulp-rename": "^1.2.2",
+    "read-yaml": "^1.0.0"
+  },
+  "bin": {
+    "cinc2tpl": "index.js"
+  }
+}
