@@ -1,6 +1,6 @@
 {
   "name": "cinc2tpl",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Converts CINC display yml files to Drupal tpl's",
   "main": "index.js",
   "repository": "Josh-Miller/cinc2tpl",
