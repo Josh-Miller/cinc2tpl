@@ -5,13 +5,22 @@
 var fileSearch = require('./lib/fileSearch'),
     buildFile = require('./lib/buildFile'),
     readYaml = require('read-yaml'),
-    path = require('path');
+    path = require('path'),
+    chalk = require('chalk'),
+    program = require('commander');
 
 var tpl = [];
+var filesCreated = 0;
 
-console.log('-------------------------------------------------------------');
-console.log('processing');
-console.log('-------------------------------------------------------------');
+program
+  .version('0.0.1')
+  .option('-f, --force', 'Force file override')
+  .option('-d, --destination [value]', 'Template file destination')
+  .parse(process.argv);
+
+console.log(chalk.green('-------------------------------------------------------------'));
+console.log(chalk.green('processing'));
+console.log(chalk.green('-------------------------------------------------------------'));
 
 fileSearch.find('.', 'cinc_display.node', function(files) {
   files.forEach(function(file) {
@@ -20,6 +29,10 @@ fileSearch.find('.', 'cinc_display.node', function(files) {
     readYaml(file, function(err, data) {
       if (err) throw err;
       var fields = data.shown_fields;
+
+      if (fields === undefined) {
+        fields = [];
+      }
 
       var fieldPath = fields.map(function(field) {
         var contentObj = {};
@@ -60,20 +73,25 @@ fileSearch.find('.', 'cinc_display.node', function(files) {
 
                 pathIndex.fields.push(fieldObj);
 
-                // Build the file
-                tpl.forEach(function(tpl) {
-                  buildFile.build(tpl);
-                });
 
               }
 
             });
           });
         });
-      })
+      });
     });
   });
-console.log('-------------------------------------------------------------');
-console.log('finished. Created ' + tpl.length + ' file(s)');
-console.log('-------------------------------------------------------------');
+
+  // Build the file
+  tpl.forEach(function(tplItem) {
+    buildFile.build(tplItem, program, function(err, count) {
+      filesCreated = count;
+    });
+  });
+
 });
+
+console.log(chalk.green('-------------------------------------------------------------'));
+console.log(chalk.green('finished. Created ' + filesCreated + ' file(s)'));
+console.log(chalk.green('-------------------------------------------------------------'));

@@ -21,6 +21,8 @@
   },
   "license": "MIT",
   "dependencies": {
+    "chalk": "^1.0.0",
+    "commander": "^2.8.1",
     "fs-walk": "0.0.1",
     "gulp": "^3.8.11",
     "gulp-build": "^0.5.3",
